@@ -1,6 +1,7 @@
 import type { User } from "../models/User";
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 const listaUsuarios: User[] = []
@@ -13,8 +14,10 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ error: "Name, email and password are required." });
   }
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await prisma.user.create({
-      data: { name, email, password },
+      data: { name, email, password: hashedPassword },
     });
     res.status(201).json({ message: "User created successfully.", user: newUser });
   } catch (error: any) {
