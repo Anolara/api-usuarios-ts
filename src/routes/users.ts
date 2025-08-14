@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     const newUser = await prisma.user.create({
       data: { name, email, password },
     });
-    res.status(201).json({ message: "User created successfully!", user: newUser });
+    res.status(201).json({ message: "User created successfully.", user: newUser });
   } catch (error: any) {
     if (error.code === "P2002") {
       return res.status(400).json({ error: "Email already exists." });
