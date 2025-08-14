@@ -8,13 +8,13 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   // Handle user creation logic here
-  const { name, email } = req.body as User;
-  if (!name || !email) {
-    return res.status(400).json({ error: "Name and email are required." });
+  const { name, email, password } = req.body as User;
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: "Name, email and password are required." });
   }
   try {
     const newUser = await prisma.user.create({
-      data: { name, email },
+      data: { name, email, password },
     });
     res.status(201).json({ message: "User created successfully!", user: newUser });
   } catch (error: any) {
