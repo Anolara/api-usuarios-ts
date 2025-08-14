@@ -4,7 +4,6 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
-const listaUsuarios: User[] = []
 const router = Router();
 
 router.post("/", async (req, res) => {
@@ -28,6 +27,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+//listar usuários
 router.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   res.json(users);
