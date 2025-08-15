@@ -16,8 +16,12 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/login", loginRoutes);
 app.get("/home", authMiddleware, (req, res) => {
-  // Aqui você sabe que o usuário passou pelo authMiddleware
-  res.send(`Welcome, ${(req as any).user.email}!`);
+  res.sendFile(path.join(__dirname, "../private/home.html"));
 });
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
+
 
 export default app;
