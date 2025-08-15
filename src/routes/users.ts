@@ -2,6 +2,7 @@ import type { User } from "../models/User";
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt';
+import { Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -19,8 +20,9 @@ router.post("/", async (req, res) => {
       data: { name, email, password: hashedPassword },
     });
     res.status(201).json({ message: "User created successfully.", user: newUser });
-  } catch (error: any) {
-    if (error.code === "P2002") {
+  } catch (error) {
+    const prismaError = error as Prisma.PrismaClientKnownRequestError;
+    if (prismaError.code === "P2002") {
       return res.status(400).json({ error: "Email already exists." });
     }
     res.status(500).json({ error: "Something went wrong." });

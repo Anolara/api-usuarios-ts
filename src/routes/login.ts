@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { SignJWT } from "jose";
+import dotenv from "dotenv";
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -25,8 +27,17 @@ router.post("/", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-    // Aqui você poderia gerar um token JWT, se quiser
-    res.json({ message: "Login successful", userId: user.id });
+    // token JWT
+    const token = await new SignJWT({ id: user.id, email: user.email })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime(process.env.JWT_EXPIRES_IN || "1h")
+      .sign(new TextEncoder().encode(process.env.JWT_SECRET!));
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: { id: user.id, email: user.email },
+    });
   } catch (error) {
     res.status(500).json({ error: "Something went wrong." });
   }
