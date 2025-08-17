@@ -4,8 +4,13 @@ import bcrypt from "bcrypt";
 import { SignJWT } from "jose";
 import dotenv from "dotenv";
 
+dotenv.config();
+
 const prisma = new PrismaClient();
 const router = Router();
+
+// Se ainda não tiver, use cookieParser no seu app principal
+// app.use(cookieParser());
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
@@ -27,25 +32,28 @@ router.post("/", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials." });
     }
 
-    // token JWT
+    // Cria o token JWT
     const token = await new SignJWT({ id: user.id, email: user.email })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime(process.env.JWT_EXPIRES_IN || "1h")
       .sign(new TextEncoder().encode(process.env.JWT_SECRET!));
 
-    res.json({
-      message: "Login successful",
-      token,
-      user: { id: user.id, email: user.email },
-    });
+    // Envia o token como cookie HTTP-only
+    res
+      .cookie("token", token, {
+        httpOnly: true, // não acessível via JS
+        secure: false, // true se estiver em HTTPS
+        sameSite: "strict",
+        maxAge: 3600000, // 1 hora
+      })
+      .json({
+        message: "Login successful",
+        user: { id: user.id, email: user.email },
+      });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Something went wrong." });
   }
-});
-
-router.get("/", async (req, res) => {
-  const users = await prisma.user.findMany();
-  res.json(users);
 });
 
 export default router;

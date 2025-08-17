@@ -1,23 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Welcome to the Home Page!</h1>
-    <p>You have successfully logged in.</p>
-    <button id="logoutBtn">Logout</button>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to the Home Page!</h1>
+      <p>You have successfully logged in.</p>
+      <button id="logoutBtn">Logout</button>
+    </div>
 
-  <script>
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      // Simplesmente redireciona para a página de login
-      window.location.href = "/login.html";
-    });
-  </script>
-</body>
+    <script>
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async () => {
+          await fetch("/logout", {
+            method: "POST",
+            credentials: "include", // essencial para enviar o cookie
+          });
+          window.location.href = "/login.html";
+        });
+    </script>
+  </body>
 </html>
