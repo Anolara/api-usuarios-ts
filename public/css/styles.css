@@ -4,31 +4,18 @@
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: white;
+  min-height: 100vh;
 }
-.container {
-  text-align: center;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 60px 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  max-width: 400px;
-  width: 90%;
-}
-h1 {
-  margin-bottom: 30px;
-  font-size: 2.5rem;
-}
+
+/* Botões */
 .btn {
   display: inline-block;
   padding: 12px 40px;
-  margin: 10px;
+  margin: 10px 0;
   font-size: 1.1rem;
   font-weight: bold;
   color: white;
@@ -51,6 +38,8 @@ h1 {
 .btn.secondary:hover {
   background-color: #0077b6;
 }
+
+/* Inputs e formulários */
 form {
   display: flex;
   flex-direction: column;
@@ -75,6 +64,50 @@ button.submit {
 button.submit:hover {
   background-color: #218838;
 }
+
+/* Container padrão */
+.container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 60px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  width: 90%;
+}
+
+/* Container centralizado vertical e horizontal (para login) */
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Navbar (para Home/Dashboard) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.navbar h1 {
+  font-size: 1.8rem;
+}
+.navbar .menu button {
+  margin-left: 10px;
+}
+
+/* Container centralizado horizontalmente (para Home) */
+.container-horizontal {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+/* Responsivo */
 @media (max-width: 500px) {
   h1 {
     font-size: 2rem;
@@ -82,5 +115,19 @@ button.submit:hover {
   .btn {
     padding: 10px 30px;
     font-size: 1rem;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar .menu {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .navbar .menu button {
+    margin-left: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
   }
 }

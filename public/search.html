@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pesquisar Usuário</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="centered">
+    <div class="container">
+      <h1>Pesquisar Usuário</h1>
+      <form id="searchForm">
+        <input
+          type="number"
+          id="userId"
+          placeholder="Digite o ID do usuário"
+          required
+        />
+        <button type="submit" class="submit">Pesquisar</button>
+        <button type="button" class="btn secondary" id="homeBtn">
+          Voltar para Home
+        </button>
+      </form>
+
+      <div id="result" style="display: none"></div>
+    </div>
+
+    <script src="./js/search.js"></script>
+  </body>
+</html>

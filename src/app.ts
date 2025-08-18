@@ -2,6 +2,8 @@ import express from "express";
 import userRoutes from "./routes/users.js";
 import loginRoutes from "./routes/login.js";
 import logoutRoutes from "./routes/logout.js";
+import searchRoutes from "./routes/search.js";
+import deleteRoutes from "./routes/delete.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { authMiddleware } from "./middlewares/loginMiddleware.js";
@@ -27,9 +29,12 @@ app.get("/home", authMiddleware, (req, res) => {
 app.use("/users", userRoutes);
 app.use("/login", loginRoutes);
 app.use("/logout", logoutRoutes);
+app.use("/search", searchRoutes);
+app.use("/delete", deleteRoutes);
 
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
-});
+
+/*app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../public/login.html"));
+});*/
 
 export default app;

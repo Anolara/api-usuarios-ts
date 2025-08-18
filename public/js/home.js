@@ -8,8 +8,22 @@
     });
 
     if (res.ok) {
-      const text = await res.text();
-      document.getElementById("welcome").innerText = text;
+
+      document.getElementById("logoutBtn").addEventListener("click", async () => {
+        await fetch("/logout", {
+          method: "POST",
+          credentials: "include",
+        });
+        window.location.href = "/login.html";
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", async () => {
+        await fetch("/logout", {
+          method: "POST",
+          credentials: "include",
+        });
+        window.location.href = "/login.html";
+      });
     } else {
       // Token inválido ou ausente, redireciona para login
       window.location.href = "/login.html";

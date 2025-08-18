@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,21 +7,52 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Welcome to the Home Page!</h1>
-      <p>You have successfully logged in.</p>
-      <button id="logoutBtn">Logout</button>
+    <!-- Menu superior -->
+    <div class="navbar">
+      <h1>Dashboard</h1>
+      <div class="menu">
+        <button
+          class="btn secondary"
+          onclick="window.location.href='search.html'"
+        >
+          Pesquisar
+        </button>
+        <button
+          class="btn secondary"
+          onclick="window.location.href='update.html'"
+        >
+          Alterar
+        </button>
+        <button
+          class="btn secondary"
+          onclick="window.location.href='delete.html'"
+        >
+          Deletar
+        </button>
+        <button class="btn" id="logoutBtn">Logout</button>
+      </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="container container-horizontal">
+      <h1>Bem-vindo à Home Page!</h1>
+      <p>Você está logado com sucesso.</p>
     </div>
 
     <script>
+      // Logout
       document
         .getElementById("logoutBtn")
         .addEventListener("click", async () => {
-          await fetch("/logout", {
-            method: "POST",
-            credentials: "include", // essencial para enviar o cookie
-          });
-          window.location.href = "/login.html";
+          try {
+            await fetch("/logout", {
+              method: "POST",
+              credentials: "include",
+            });
+            window.location.href = "/login.html";
+          } catch (err) {
+            console.error("Erro ao fazer logout:", err);
+          }
         });
     </script>
   </body>
