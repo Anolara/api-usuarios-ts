@@ -15,7 +15,7 @@ export async function authMiddleware(
   // Pega o token do cookie
   const token = req.cookies.token;
 
-  if (!token) return res.redirect("/token-missing.html");
+  if (!token) return res.redirect("/login.html");
 
   try {
     const { payload } = await jwtVerify(

@@ -20,9 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/private", (req, res) => {
-  res.redirect("/token-missing.html");
-});
 app.get("/home", authMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, "../private/home.html"));
 });

@@ -131,3 +131,19 @@ button.submit:hover {
     margin-bottom: 5px;
   }
 }
+.message {
+  display: none;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+}
+
+.message.success {
+  background-color: #28a745;
+}
+
+.message.error {
+  background-color: #ff4b2b;
+}

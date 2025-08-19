@@ -1,5 +1,10 @@
 const registerForm = document.getElementById("registerForm");
 
+// Cria a div de mensagem e adiciona ao final do form
+const messageDiv = document.createElement("div");
+messageDiv.classList.add("message"); // classe base do CSS
+registerForm.appendChild(messageDiv);
+
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -17,13 +22,28 @@ registerForm.addEventListener("submit", async (e) => {
     const data = await res.json();
 
     if (res.ok) {
-      alert(`User registered! ID`);
+      messageDiv.className = "message success"; // aplica estilo de sucesso
+      messageDiv.innerText = `User registered successfully!`;
     } else {
-      alert(data.error);
+      messageDiv.className = "message error"; // aplica estilo de erro
+      messageDiv.innerText = data.error;
     }
+
+    messageDiv.style.display = "block";
+
+    // Remove a mensagem após 10 segundos
+    setTimeout(() => {
+      messageDiv.style.display = "none";
+    }, 10000);
   } catch (err) {
     console.error(err);
-    alert("Something went wrong");
+    messageDiv.className = "message error";
+    messageDiv.innerText = "Something went wrong";
+    messageDiv.style.display = "block";
+
+    setTimeout(() => {
+      messageDiv.style.display = "none";
+    }, 3000);
   }
 
   registerForm.reset();
