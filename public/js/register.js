@@ -8,7 +8,7 @@ registerForm.addEventListener("submit", async (e) => {
   const password = registerForm.password.value;
 
   try {
-    const res = await fetch("/users", {
+    const res = await fetch("/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),

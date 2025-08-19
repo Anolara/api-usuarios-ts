@@ -1,17 +1,18 @@
 import type { User } from "../models/User";
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 import { Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const router = Router();
 
 router.post("/", async (req, res) => {
-  // Handle user creation logic here
   const { name, email, password } = req.body as User;
   if (!name || !email || !password) {
-    return res.status(400).json({ error: "Name, email and password are required." });
+    return res
+      .status(400)
+      .json({ error: "Name, email and password are required." });
   }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,7 +20,9 @@ router.post("/", async (req, res) => {
     const newUser = await prisma.user.create({
       data: { name, email, password: hashedPassword },
     });
-    res.status(201).json({ message: "User created successfully.", user: newUser });
+    res
+      .status(201)
+      .json({ message: "User created successfully.", user: newUser });
   } catch (error) {
     const prismaError = error as Prisma.PrismaClientKnownRequestError;
     if (prismaError.code === "P2002") {
